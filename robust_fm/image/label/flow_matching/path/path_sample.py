@@ -1,0 +1,31 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved. Modifications: Robust Flow Matching authors.
+# See licenses/CC-BY-NC-4.0.txt and LICENSE.
+# Retained from the successful original CIFAR-10 label-noise pipeline;
+# unrelated dataset/method branches were removed without changing its operations.
+from dataclasses import dataclass, field
+from torch import Tensor
+
+
+@dataclass
+class PathSample:
+    """Represents a sample of a conditional-flow generated probability path.
+
+    Attributes:
+        x_1 (Tensor): the target sample :math:`X_1`.
+        x_0 (Tensor): the source sample :math:`X_0`.
+        t (Tensor): the time sample :math:`t`.
+        x_t (Tensor): samples :math:`X_t \\sim p_t(X_t)`, shape (batch_size, ...).
+        dx_t (Tensor): conditional target :math:`\\frac{\\partial X}{\\partial t}`, shape: (batch_size, ...).
+
+    """
+
+    x_1: Tensor = field(metadata={"help": "target samples X_1 (batch_size, ...)."})
+    x_0: Tensor = field(metadata={"help": "source samples X_0 (batch_size, ...)."})
+    t: Tensor = field(metadata={"help": "time samples t (batch_size, ...)."})
+    x_t: Tensor = field(
+        metadata={"help": "samples x_t ~ p_t(X_t), shape (batch_size, ...)."}
+    )
+    dx_t: Tensor = field(
+        metadata={"help": "conditional target dX_t, shape: (batch_size, ...)."}
+    )
