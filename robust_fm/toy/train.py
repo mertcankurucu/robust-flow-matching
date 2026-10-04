@@ -171,7 +171,7 @@ def fit(cfg):
                 )
                 counts[idx] += 1
                 if step >= cfg.score_freeze_steps:
-                    threshold = torch.quantile(scores[counts > 0], 0.6)
+                    threshold = torch.quantile(scores[counts > 0], 0.7)
                     weights = torch.sigmoid(-(scores[idx] - threshold) / cfg.tau)
         elif cfg.method == "fm_ccs":
             if step in refresh:
